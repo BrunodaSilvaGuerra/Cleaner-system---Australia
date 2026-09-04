@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join Cleanly Operations</title>
+  <link rel="stylesheet" href="cleaner-signup.css" />
+</head>
+<body>
+  <main class="signup-shell">
+    <p class="brand">CLEANLY OPERATIONS</p>
+    <h1>Cleaner registration</h1>
+    <p class="intro">Complete your details and availability. Your manager will review your application and confirm your hourly rate.</p>
+    <form id="cleanerSignupForm">
+      <label>Full name<input name="name" required autocomplete="name" placeholder="e.g. Maria Silva" /></label>
+      <label>Mobile phone<input name="phone" type="tel" required autocomplete="tel" placeholder="+61 4XX XXX XXX" /></label>
+      <label>ABN<input name="abn" required inputmode="numeric" placeholder="12 345 678 901" /></label>
+      <section class="availability"><h2>Weekly availability</h2><p>Select the days and hours you are available to work.</p><div id="availabilityGrid"></div></section>
+      <button type="submit">Submit registration</button>
+      <p class="form-message" id="formMessage" role="status"></p>
+    </form>
+  </main>
+  <script src="cleaner-signup.js"></script>
+</body>
+</html>
