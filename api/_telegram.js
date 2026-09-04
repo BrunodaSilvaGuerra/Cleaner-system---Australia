@@ -6,6 +6,10 @@ async function setInvite(token,data){await kv(['SET','cleaner-invite:'+token,JSO
 async function getInvite(token){const raw=await kv(['GET','cleaner-invite:'+token]);return raw?JSON.parse(raw):null}
 async function getApplications(){const raw=await kv(['GET','cleaner-applications']);return raw?JSON.parse(raw):[]}
 async function saveApplications(applications){await kv(['SET','cleaner-applications',JSON.stringify(applications)])}
+async function addApplication(application){const applications=await getApplications();applications.unshift(application);await saveApplications(applications)}
+async function setRegistration(chatId,data){await kv(['SET','cleaner-registration:'+chatId,JSON.stringify(data),'EX',60*60*24])}
+async function getRegistration(chatId){const raw=await kv(['GET','cleaner-registration:'+chatId]);return raw?JSON.parse(raw):null}
+async function deleteRegistration(chatId){await kv(['DEL','cleaner-registration:'+chatId])}
 function json(res,status,body){res.status(status).json(body)}
 function makeToken(){return crypto.randomBytes(18).toString('base64url')}
-module.exports={env,telegram,setInvite,getInvite,getApplications,saveApplications,json,makeToken};
+module.exports={env,telegram,setInvite,getInvite,getApplications,saveApplications,addApplication,setRegistration,getRegistration,deleteRegistration,json,makeToken};

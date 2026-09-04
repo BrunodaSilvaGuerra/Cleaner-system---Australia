@@ -7,8 +7,8 @@
   const availabilitySummary = availability => Object.entries(availability).map(([day, hours]) => `${day.slice(0, 3)} ${hours[0]}–${hours[1]}`).join(' · ');
 
   copyButton?.addEventListener('click', async () => {
-    const link = `${window.location.origin}/cleaner-signup.html`;
-    try { await navigator.clipboard.writeText(link); showAddToast('Registration link copied', 'Send this link to cleaners who want to apply.'); }
+    const link = 'https://t.me/cleanly_perth_bot?start=register';
+    try { await navigator.clipboard.writeText(link); showAddToast('Telegram link copied', 'Send this link to cleaners so they can register with the bot.'); }
     catch { window.prompt('Copy this cleaner registration link:', link); }
   });
 
@@ -29,7 +29,7 @@
       const result = await response.json(); if (!response.ok || !result.ok) throw new Error(result.error || 'Unable to approve application.');
       const index = team.length;
       team.push([initials(application.name), application.name, 'Cleaner', 'Available', '0h this week']);
-      teamAbns.push(application.abn); teamProfiles.push({ phone: application.phone, rate, telegram: false, availability: application.availability });
+      teamAbns.push(application.abn); teamProfiles.push({ phone: application.phone, rate, telegram: Boolean(application.telegramChatId), chatId: application.telegramChatId || '', availability: application.availability });
       const grid = document.querySelector('#teamGrid'); if (grid.querySelector('.empty-state')) grid.innerHTML = '';
       const teamCard = document.createElement('article'); teamCard.className = 'team-card';
       teamCard.innerHTML = `${avatar(initials(application.name), index)}<button class="edit-button card-edit edit-team" data-index="${index}">Edit</button><h3>${application.name}</h3><p>Cleaner</p><footer><span>● Available</span><span>$${rate.toFixed(2)}/h</span></footer><button class="delete-button">Delete</button>`;
