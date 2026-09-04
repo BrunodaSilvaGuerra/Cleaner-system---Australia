@@ -1,7 +1,7 @@
 # Vercel Telegram invite setup
 
 1. Import this GitHub repository into Vercel.
-2. Create a Vercel KV database for persistent invite records.
+2. In **Storage**, install **Upstash Redis** from the Vercel Marketplace and connect it to this project. It provides the persistent store for registrations and Telegram connections. The automatically-added `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` variables are supported.
 3. Add every value from .env.vercel.example in Vercel Project Settings, Environment Variables.
 4. Deploy the project. Copy the production URL, such as https://your-project.vercel.app.
 5. Set the Telegram webhook to:
