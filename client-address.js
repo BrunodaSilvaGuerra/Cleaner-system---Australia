@@ -1,9 +1,4 @@
-const clientLocationData=[
-  {rate:55,gst:10,address:'25 Smith Street, Subiaco WA 6008, Australia',lat:-31.9481,lon:115.8193},
-  {rate:68,gst:10,address:'44 Hay Street, Subiaco WA 6008, Australia',lat:-31.9509,lon:115.8141},
-  {rate:75,gst:10,address:'18 Hay Street, Subiaco WA 6008, Australia',lat:-31.9514,lon:115.8135},
-  {rate:58,gst:10,address:'7 Rokeby Road, Subiaco WA 6008, Australia',lat:-31.9487,lon:115.8174}
-];
+const clientLocationData=savedWorkspace.clientLocationData||[];
 let addressTimer,selectedLocation=null;
 const addressInput=document.querySelector('#clientAddress'),results=document.querySelector('#addressResults'),coordinates=document.querySelector('#coordinates');
 function renderCoordinates(location){if(!location){coordinates.textContent='No verified location selected';coordinates.classList.add('pending');return}coordinates.textContent=`✓ Verified coordinates: ${location.lat.toFixed(6)}, ${location.lon.toFixed(6)}`;coordinates.classList.remove('pending')}

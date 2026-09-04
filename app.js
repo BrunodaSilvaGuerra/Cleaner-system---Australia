@@ -1,9 +1,10 @@
-const jobs=[['09:00','John Smith','Regular home clean','Anna Wilson','AW','confirmed','Confirmed'],['11:30','Evergreen Co.','Office clean · Subiaco','Julia Moore','JM','in-progress','In progress'],['15:00','Harbour Office','Commercial clean','David Chen','DC','waiting','Awaiting confirmation'],['17:30','Maria Jones','Regular home clean','Sophie Lee','SL','confirmed','Confirmed']];
+const savedWorkspace=JSON.parse(localStorage.getItem('cleanly-workspace-v1')||'null')||{};
+const jobs=savedWorkspace.jobs||[];
 const attention=[['⏱','Extra time pending','Anna Wilson logged 35 min extra at John Smith','Review'],['◉','Location needs review','Check-out was 112m from job address','Review'],['✉','Job declined','Sophie Lee cannot attend Harbour Office','Reassign'],['$','Invoice overdue','INV-1048 · $860.00 was due 2 days ago','View']];
-const clients=[['JS','John Smith','Regular home clean','Weekly','Today · 09:00','Active'],['EC','Evergreen Co.','Office cleaning','2× weekly','Today · 11:30','Active'],['HO','Harbour Office','Commercial clean','Weekly','Today · 15:00','Active'],['MJ','Maria Jones','Regular home clean','Fortnightly','Friday · 10:00','Active']];
-const clientRates=[55,68,75,58];
-const team=[['AW','Anna Wilson','Senior Cleaner','On shift · John Smith','24h this week'],['JM','Julia Moore','Cleaner','On shift · Evergreen Co.','19h this week'],['DC','David Chen','Cleaner','On shift · Harbour Office','22h this week'],['SL','Sophie Lee','Cleaner','Off today','16h this week'],['NB','Nina Bell','Cleaner','On shift · Studio 44','21h this week'],['RW','Ruby Watson','Cleaner','Off today','14h this week']];
-const invoices=[['INV-1052','John Smith','1 Sep 2026','15 Sep 2026','$240.00','sent','Sent'],['INV-1051','Evergreen Co.','1 Sep 2026','15 Sep 2026','$1,480.00','paid','Paid'],['INV-1048','Harbour Office','18 Aug 2026','2 Sep 2026','$860.00','overdue','Overdue'],['INV-1047','Maria Jones','18 Aug 2026','2 Sep 2026','$320.00','overdue','Overdue'],['INV-1053','Solace Dental','4 Sep 2026','18 Sep 2026','$2,100.00','draft','Draft']];
+const clients=savedWorkspace.clients||[];
+const clientRates=savedWorkspace.clientRates||[];
+const team=savedWorkspace.team||[];
+const invoices=savedWorkspace.invoices||[];
 const avatar=(initials, i=0)=>`<span class="avatar a${i%4+1}">${initials}</span>`;
 document.querySelector('#todayJobs').innerHTML=jobs.map((j,i)=>`<div class="job-row"><div class="job-time">${j[0]}</div><div><div class="job-name">${j[1]}</div><div class="job-detail">${j[2]} <span>· 2h</span></div></div><div class="job-person">${avatar(j[4],i)} ${j[3]} <span class="pill ${j[5]}">${j[6]}</span></div></div>`).join('');
 document.querySelector('#attentionList').innerHTML=attention.map(a=>`<div class="attention"><div class="attention-icon">${a[0]}</div><div><strong>${a[1]}</strong><p>${a[2]}</p></div><button>${a[3]}</button></div>`).join('');

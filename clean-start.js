@@ -1,15 +1,15 @@
-// Starts the new workspace without demo records. Data is populated through the UI as the business is set up.
-jobs.splice(0);clients.splice(0);team.splice(0);invoices.splice(0);clientRates.splice(0);clientLocationData.splice(0);teamProfiles.splice(0);teamAbns.splice(0);invoiceDetails.splice(0);
-Object.assign(companyProfile,{name:'',abn:'',bsb:'',account:'',email:''});
+// The workspace starts empty only once. Afterwards, it restores the records saved in this browser.
 const empty=(icon,title,copy,action='')=>`<div class="empty-state"><div class="empty-icon">${icon}</div><h3>${title}</h3><p>${copy}</p>${action}</div>`;
-document.querySelector('#todayJobs').innerHTML=empty('◷','No jobs scheduled today','Create your first job to start building today’s schedule.','<button class="new-job">+ New job</button>');
+if(!jobs.length){
+  document.querySelector('#todayJobs').innerHTML=empty('◷','No jobs scheduled today','Create your first job to start building today’s schedule.','<button class="new-job">+ New job</button>');
+  document.querySelector('#jobsTable').innerHTML=`<tr class="empty-table"><td colspan="6">${empty('◷','No jobs yet','Add a client and cleaner, then create your first scheduled job.')}</td></tr>`;
+}
+if(!clients.length)document.querySelector('#clientsTable').innerHTML=`<tr class="empty-table"><td colspan="7">${empty('♙','No clients yet','Add your first client to begin scheduling cleaning services.','<button class="new-job">+ Add client</button>')}</td></tr>`;
+if(!team.length){
+  document.querySelector('#teamGrid').innerHTML=empty('♧','No cleaners yet','Add a cleaner to manage availability, Telegram and attendance.','<button class="new-job">+ Add cleaner</button>');
+  document.querySelector('.stat-card:nth-child(3) .neutral').textContent='No team members added';
+}
+if(!invoices.length)document.querySelector('#invoicesTable').innerHTML=`<tr class="empty-table"><td colspan="7">${empty('$','No invoices yet','Invoices will appear here once you record completed jobs.')}</td></tr>`;
 document.querySelector('#attentionList').innerHTML=empty('✓','All caught up','There are no approvals or operational items waiting for you.');
-document.querySelectorAll('.stat-card h2').forEach((heading,index)=>heading.innerHTML=index===0||index===3?'$0<span>.00</span>':'0');document.querySelector('.stat-card:nth-child(3) .neutral').textContent='No team members added';document.querySelector('.stat-card:nth-child(4) .warn').textContent='No invoices awaiting payment';
-document.querySelector('#jobsTable').innerHTML=`<tr class="empty-table"><td colspan="6">${empty('◷','No jobs yet','Add a client and cleaner, then create your first scheduled job.')}</td></tr>`;
-document.querySelector('#clientsTable').innerHTML=`<tr class="empty-table"><td colspan="7">${empty('♙','No clients yet','Add your first client to begin scheduling cleaning services.','<button class="new-job">+ Add client</button>')}</td></tr>`;
-document.querySelector('#teamGrid').innerHTML=empty('♧','No cleaners yet','Add a cleaner to manage availability, Telegram and attendance.','<button class="new-job">+ Add cleaner</button>');
-document.querySelector('#invoicesTable').innerHTML=`<tr class="empty-table"><td colspan="7">${empty('$','No invoices yet','Invoices will appear here once you record completed jobs.')}</td></tr>`;
-const schedule=document.querySelector('#schedule .calendar');schedule.innerHTML=empty('▧','Your schedule is ready','Create your first job to populate the weekly calendar.','<button class="new-job">+ New job</button>');
-document.querySelector('#cleaner-portal .portal-side').innerHTML='<p class="eyebrow">CLEANER PORTAL</p><div class="portal-help">This portal becomes available when you add your first cleaner.</div>';document.querySelector('#cleaner-portal .portal-main').innerHTML=empty('◉','Cleaner portal is ready','Add a cleaner and assign a job to activate their mobile work portal.');document.querySelector('#cleaner-portal .portal-main').classList.add('cleaner-empty');
-document.querySelector('#users .access-panel').innerHTML=empty('♜','Set up your admin access','Use “Invite user” to add the first administrator for this workspace.');document.querySelector('#users .cleaner-access').innerHTML=empty('◉','No cleaner accounts yet','Cleaner portal access is created when you add a cleaner.');
-document.querySelectorAll('#jobs .table-tabs button,#invoices .table-tabs button').forEach(button=>button.textContent=button.textContent.replace(/\s*\d+\s*/,' '));document.querySelectorAll('.new-job').forEach(button=>button.addEventListener('click',()=>{if(button.textContent.includes('client'))showView('clients');else if(button.textContent.includes('cleaner'))showView('team');else modal.classList.add('open')}));
+document.querySelectorAll('#jobs .table-tabs button,#invoices .table-tabs button').forEach(button=>button.textContent=button.textContent.replace(/\s*\d+\s*/,' '));
+document.querySelectorAll('.new-job').forEach(button=>button.addEventListener('click',()=>{if(button.textContent.includes('client'))showView('clients');else if(button.textContent.includes('cleaner'))showView('team');else modal.classList.add('open')}));

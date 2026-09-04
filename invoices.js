@@ -1,5 +1,5 @@
-const companyProfile={name:'Cleanly Perth Pty Ltd',abn:'12 345 678 901',bsb:'306-089',account:'1234 5678',email:'accounts@cleanly.au'};
-const invoiceDetails=invoices.map((invoice,index)=>({number:invoice[0],customer:invoice[1],issued:invoice[2],due:invoice[3],status:invoice[6],description:index===1?'Office cleaning services · 1–7 September':'Regular cleaning service',quantity:index===1?12:2,rate:index===1?112:120,gst:10}));
+const companyProfile=savedWorkspace.companyProfile||{name:'',abn:'',bsb:'',account:'',email:''};
+const invoiceDetails=savedWorkspace.invoiceDetails||invoices.map((invoice,index)=>({number:invoice[0],customer:invoice[1],issued:invoice[2],due:invoice[3],status:invoice[6],description:index===1?'Office cleaning services · 1–7 September':'Regular cleaning service',quantity:index===1?12:2,rate:index===1?112:120,gst:10}));
 const invoiceUi=document.createElement('div');invoiceUi.innerHTML='<div class="modal-backdrop" id="invoiceModal"></div><div class="modal-backdrop" id="companyModal"></div>';document.body.append(invoiceUi);
 const invoiceModal=document.querySelector('#invoiceModal'),companyModal=document.querySelector('#companyModal');
 function money(value){return `$${Number(value).toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2})}`}

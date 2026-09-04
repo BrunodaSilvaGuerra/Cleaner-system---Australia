@@ -1,11 +1,4 @@
-const teamProfiles=[
-  {phone:'+61 412 555 018',rate:34,telegram:true,availability:{Monday:['07:00','10:00'],Tuesday:['14:00','18:00'],Wednesday:['07:00','15:00'],Thursday:['07:00','15:00'],Friday:['07:00','12:00']}},
-  {phone:'+61 412 555 021',rate:32,telegram:true,availability:{Monday:['09:00','17:00'],Tuesday:['09:00','17:00'],Wednesday:['09:00','17:00'],Thursday:['09:00','17:00'],Friday:['09:00','15:00']}},
-  {phone:'+61 412 555 042',rate:33,telegram:true,availability:{Monday:['08:00','16:00'],Wednesday:['08:00','16:00'],Thursday:['08:00','16:00'],Friday:['08:00','16:00']}},
-  {phone:'+61 412 555 057',rate:31,telegram:false,availability:{Tuesday:['10:00','18:00'],Thursday:['10:00','18:00'],Friday:['10:00','18:00']}},
-  {phone:'+61 412 555 064',rate:32,telegram:true,availability:{Monday:['08:00','16:00'],Tuesday:['08:00','16:00'],Wednesday:['08:00','16:00'],Thursday:['08:00','16:00'],Friday:['08:00','16:00']}},
-  {phone:'+61 412 555 088',rate:31,telegram:false,availability:{Monday:['12:00','18:00'],Wednesday:['12:00','18:00'],Friday:['12:00','18:00']}}
-];
+const teamProfiles=savedWorkspace.teamProfiles||[];
 const weekDays=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 function renderAvailability(profile){document.querySelector('#availabilityGrid').innerHTML=weekDays.map(day=>{const hours=profile.availability[day]||['07:00','15:00'];const checked=Boolean(profile.availability[day]);return `<label class="availability-row"><input type="checkbox" data-day="${day}" ${checked?'checked':''}/><b>${day}</b><input type="time" data-start="${day}" value="${hours[0]}" ${checked?'':'disabled'}/><span>to</span><input type="time" data-end="${day}" value="${hours[1]}" ${checked?'':'disabled'}/></label>`}).join('');document.querySelectorAll('.availability-row input[type=checkbox]').forEach(box=>box.addEventListener('change',()=>{const row=box.closest('.availability-row');row.querySelectorAll('input[type=time]').forEach(input=>input.disabled=!box.checked)}))}
 document.querySelectorAll('.edit-team').forEach(button=>button.addEventListener('click',()=>{const profile=teamProfiles[+button.dataset.index];document.querySelector('.edit-modal').classList.add('team-edit');document.querySelector('#teamPhone').value=profile.phone;document.querySelector('#teamRate').value=profile.rate;document.querySelector('#telegramStatus').textContent=profile.telegram?'Telegram connected':'Telegram not connected';renderAvailability(profile)}));
