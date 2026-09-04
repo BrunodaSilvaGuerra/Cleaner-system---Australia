@@ -1,0 +1,1 @@
+document.querySelectorAll('.checkin-button').forEach(button=>button.addEventListener('click',()=>{button.textContent='✓ Checked in';button.disabled=true;button.style.background='#58d6a0';document.querySelector('.arrival-note').textContent='Checked in just now'}));
